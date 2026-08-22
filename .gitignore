@@ -1,0 +1,64 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.json
+!package.json
+!tsconfig.json
+!firebase.json
+!.firebaserc
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Node / Next.js
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+dist/
+frontend/dist/
+out/
+frontend/out/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Firebase & Deployment Caches
+.firebase/
+frontend/.firebase/
+
+# Media, Screen Recordings & Video Outputs
+outputs/
+*.mp3
+*.mp4
+*.webm
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+!frontend/public/**/*.png
+!frontend/public/**/*.jpg
+!frontend/public/**/*.svg
+
+# Automation & Scratch Recording Scripts (Dev-Only)
+generate_*.py
+record_*.py
+perfect_demo_pipeline.py
+regenerate_*.py
+verify_*.py
+test_*.wav
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
