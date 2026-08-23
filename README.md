@@ -46,7 +46,7 @@ ProductionPulse is an intelligent, multi-agent studio production platform that t
   * **SAG-AFTRA Talent Coordinator**: Day-Out-of-Days analysis and actor holding cost avoidance.
   * **Safety & VFX Supervisor**: High-hazard risk scores, wirework requirements, and CGI shot complexity.
 * ⚡ **Live ClickHouse MCP Protocol Inspector**: Plain-English queries are translated by Gemini into optimized ClickHouse SQL, executed over persistent stdio MCP sessions with sub-millisecond OLAP speed (`<2ms` query execution, `~500ms` full end-to-end agent reasoning), and displayed transparently in real-time.
-* 🌐 **Industry Grounding Engine**: Integrates live web search grounding with automatic transparent fallback to verified entertainment industry standards (*SAG-AFTRA 2026 Theatrical Basic Agreement & VES VFX benchmarks*).
+* 🌐 **Entertainment Industry Grounding Engine**: Cites verified union contracts and guild standards (*SAG-AFTRA Theatrical Basic Agreement, DGA Operations Guild, and VES VFX benchmarks*).
 * 🎛️ **Real-Time What-If Scenario Simulator**: Interactive sliders to adjust VFX cutbacks, lead talent salary multipliers, and daily shoot limits, instantly recalculating studio budgets.
 * 📋 **Exportable Industry Call Sheets**: Daily production call sheets complete with Leavesden Stage locations, cast schedules, meal breaks, and hospital contacts.
 * 🍿 **Pre-Loaded Interactive Studio Datasets**: Instant 1-click datasets (*Mind Heist* & *Cyber Horizon*) for immediate evaluation without requiring file uploads.
@@ -171,8 +171,7 @@ CLICKHOUSE_USERNAME=default
 CLICKHOUSE_PASSWORD=your-password
 CLICKHOUSE_DATABASE=default
 
-# Optional Integrations
-PARALLEL_API_KEY=your-parallel-api-key
+# Optional Configurations
 GCS_BUCKET=your-gcs-bucket
 CORS_ORIGINS=http://localhost:3000,https://productionpulse-hackathon.web.app
 ```

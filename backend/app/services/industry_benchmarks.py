@@ -1,15 +1,12 @@
-"""Parallel Search Grounding Tool for ProductionPulse.
+"""Industry Benchmarks & Standards Grounding Service for ProductionPulse.
 
-Distinguishes between:
-1. Live Web Search Grounding (via Parallel Search API when PARALLEL_API_KEY is configured)
-2. Verified Reference Trade Data (SAG-AFTRA Theatrical Agreement / VES Composite benchmarks)
+Provides verified entertainment industry rates and union standards:
+1. SAG-AFTRA Theatrical Basic Agreement (Schedule A/F Day/Weekly scale)
+2. Visual Effects Society (VES) 2026 Production Benchmarks
+3. Directors Guild of America (DGA) Line Producer Company Move Guidelines
 """
-import os
-import json
-import httpx
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
-# Verified industry fallback benchmarks (2026 Entertainment Trade Standards)
 INDUSTRY_BENCHMARKS = {
     "sag_aftra_theatrical_day": {
         "rate_usd": 1204.0,
@@ -30,51 +27,11 @@ INDUSTRY_BENCHMARKS = {
 }
 
 
-from app.config import get_settings
-
-def get_parallel_api_key() -> str:
-    settings = get_settings()
-    return (
-        settings.paralle_ai_api
-        or settings.parallel_api_key
-        or os.environ.get("paralle_ai_api", "")
-        or os.environ.get("PARALLEL_API_KEY", "")
-        or os.environ.get("PARALLEL_AI_API", "")
-    ).strip()
-
-
 def search_industry_rates(query: str) -> Dict[str, Any]:
-    """Search live industry benchmarks via Parallel Search API or verified entertainment benchmarks."""
+    """Search verified entertainment industry benchmarks and union rate sheets."""
     clean_q = query.lower()
-    api_key = get_parallel_api_key()
 
-    # 1. Attempt Live Parallel Search API if key is present
-    if api_key:
-        try:
-            with httpx.Client(timeout=6.0) as client:
-                res = client.post(
-                    "https://api.parallel.ai/v1/search",
-                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                    json={"query": f"film production benchmark {query}", "max_results": 2}
-                )
-                if res.status_code == 200:
-                    data = res.json()
-                    return {
-                        "grounded": True,
-                        "grounding_type": "live_web_search",
-                        "provider": "Parallel Search API (parallel-web)",
-                        "badge_label": "🟢 Live Web Grounding (Parallel Search)",
-                        "results": data.get("results", []),
-                        "query": query,
-                        "is_live": True
-                    }
-                else:
-                    print(f"[Parallel Search API] HTTP {res.status_code}: {res.text}")
-        except Exception as e:
-            print(f"[Parallel Search API] Live search exception: {e}")
-
-    # 2. Transparent Fallback: Tagged visibly as Reference Trade Data
-    if "actor" in clean_q or "sag" in clean_q or "cast" in clean_q or "talent" in clean_q:
+    if "actor" in clean_q or "sag" in clean_q or "cast" in clean_q or "talent" in clean_q or "hold" in clean_q:
         item = INDUSTRY_BENCHMARKS["sag_aftra_theatrical_day"]
         return {
             "grounded": True,
@@ -88,7 +45,7 @@ def search_industry_rates(query: str) -> Dict[str, Any]:
             "is_live": False
         }
 
-    if "vfx" in clean_q or "cgi" in clean_q or "shot" in clean_q:
+    if "vfx" in clean_q or "cgi" in clean_q or "shot" in clean_q or "weather" in clean_q or "exterior" in clean_q:
         item = INDUSTRY_BENCHMARKS["vfx_shot_composite"]
         return {
             "grounded": True,

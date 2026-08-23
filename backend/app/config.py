@@ -9,19 +9,15 @@ class Settings(BaseSettings):
     google_cloud_location: str = "us-central1"
     google_application_credentials: str = ""
 
-    # ClickHouse
+    # ClickHouse Cloud (OLAP Analytics Engine)
     clickhouse_host: str = ""
     clickhouse_port: int = 8443
     clickhouse_username: str = "default"
     clickhouse_password: str = ""
     clickhouse_database: str = "default"
 
-    # GCS
+    # Google Cloud Storage
     gcs_bucket: str = ""
-
-    # Parallel AI Search
-    paralle_ai_api: str = ""
-    parallel_api_key: str = ""
 
     # App
     app_env: str = "development"

@@ -97,7 +97,7 @@ def generate_fallback_agent_response(question: str, project_id: Optional[str] = 
         mcp_res = execute_mcp_clickhouse_query(sql_query, pid)
         data = mcp_res.get("data", [])
         night_count = len(data)
-        from app.services.parallel_search import search_industry_rates
+        from app.services.industry_benchmarks import search_industry_rates
         grounding_info = search_industry_rates("location company move")
         answer = f"**{agent_role} Report:**\n\nIdentified **{night_count} night/exterior scenes** via `mcp-clickhouse`. [{grounding_info.get('badge_label')}]: Citing {grounding_info.get('source')}, grouping these sequentially into night-blocks eliminates redundant company moves and saves an estimated **$42,000** in turnaround overtime costs."
 
@@ -106,7 +106,7 @@ def generate_fallback_agent_response(question: str, project_id: Optional[str] = 
         agent_role = "💰 Line Producer Agent"
         mcp_res = execute_mcp_clickhouse_query(sql_query, pid)
         data = mcp_res.get("data", [])
-        from app.services.parallel_search import search_industry_rates
+        from app.services.industry_benchmarks import search_industry_rates
         grounding_info = search_industry_rates("vfx composite")
         answer = f"**{agent_role} Report:**\n\nClickHouse aggregated all production line items by department via `mcp-clickhouse`. [{grounding_info.get('badge_label')}]: Citing {grounding_info.get('source')}, the largest cost drivers are **Visual Effects (VFX)** and **Lead Talent**. Applying a 15% CGI cut or consolidating location shooting days yields an immediate bottom-line reduction of **$4.2M**."
 
@@ -115,7 +115,7 @@ def generate_fallback_agent_response(question: str, project_id: Optional[str] = 
         agent_role = "🎭 SAG-AFTRA Talent Coordinator"
         mcp_res = execute_mcp_clickhouse_query(sql_query, pid)
         data = mcp_res.get("data", [])
-        from app.services.parallel_search import search_industry_rates
+        from app.services.industry_benchmarks import search_industry_rates
         grounding_info = search_industry_rates("sag-aftra daily rate")
         answer = f"**{agent_role} Analysis:**\n\nQuerying character scene matrices in ClickHouse reveals our principal leads are active across major set sequences. [{grounding_info.get('badge_label')}]: Citing {grounding_info.get('source')}, the consecutive employment rule mandates full day rates for idle days. By applying the **DOOD (Day-Out-of-Days)** schedule optimizer, we eliminate **4 union holding days**, avoiding idle talent penalties."
 
