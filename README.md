@@ -159,12 +159,22 @@ pip install -r requirements.txt
 
 Create `backend/.env` (see `backend/.env.example`):
 ```env
+# Google Cloud / Vertex AI
+GOOGLE_CLOUD_PROJECT=your-gcp-project
+GOOGLE_CLOUD_LOCATION=us-central1
+GOOGLE_APPLICATION_CREDENTIALS=./service-account.json
+
+# ClickHouse Cloud (OLAP Backbone)
 CLICKHOUSE_HOST=your-cluster.clickhouse.cloud
 CLICKHOUSE_PORT=8443
 CLICKHOUSE_USERNAME=default
 CLICKHOUSE_PASSWORD=your-password
 CLICKHOUSE_DATABASE=default
-GOOGLE_CLOUD_PROJECT=your-gcp-project
+
+# Optional Integrations
+PARALLEL_API_KEY=your-parallel-api-key
+GCS_BUCKET=your-gcs-bucket
+CORS_ORIGINS=http://localhost:3000,https://productionpulse-hackathon.web.app
 ```
 
 Start the backend:
